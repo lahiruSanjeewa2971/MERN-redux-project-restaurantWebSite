@@ -19,17 +19,17 @@ const userCtrl = {
                 name, email, password: passwordHash
             })
 
-            //save to DB
+            //save to DB 
             await newUser.save()
 
             //create jsonwebtoken to authentication
             const accesstoken = createAccessToken({id: newUser._id})
             const refreshtoken = createRefreshToken({id: newUser._id})
 
-            res.cookie('refreshtoken', refreshtoken, {
+            /*res.cookie('refreshtoken', refreshtoken, {
                 httpOnly: true,
                 path: '/user/refresh_token'
-            })
+            })*/
             
             res.json({accesstoken})
             //res.json({msg: "Register success!"})
@@ -55,10 +55,10 @@ const userCtrl = {
             const accesstoken = createAccessToken({id: user._id})
             const refreshtoken = createRefreshToken({id: user._id})
 
-            res.cookie('refreshtoken', refreshtoken, {
+            /*res.cookie('refreshtoken', refreshtoken, {
                 httpOnly: true,
                 path: '/user/refresh_token'
-            })
+            })*/
             
             res.json({accesstoken})
 
@@ -118,7 +118,7 @@ const userCtrl = {
 }
 
 const createAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '11m'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '11d'})
 }
 
 const createRefreshToken = (user) => {
